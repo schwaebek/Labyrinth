@@ -23,6 +23,7 @@
 		2736FA38199D3CDA000D02C5 /* LABGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2736FA37199D3CDA000D02C5 /* LABGraphView.m */; };
 		2736FA3D199E5273000D02C5 /* wood.png in Resources */ = {isa = PBXBuildFile; fileRef = 2736FA3C199E5273000D02C5 /* wood.png */; };
 		2736FA3F199E6BEB000D02C5 /* leather.png in Resources */ = {isa = PBXBuildFile; fileRef = 2736FA3E199E6BEB000D02C5 /* leather.png */; };
+		277326C919A124B700FD082A /* metal.png in Resources */ = {isa = PBXBuildFile; fileRef = 277326C819A124B700FD082A /* metal.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		2736FA37199D3CDA000D02C5 /* LABGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LABGraphView.m; sourceTree = "<group>"; };
 		2736FA3C199E5273000D02C5 /* wood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood.png; sourceTree = "<group>"; };
 		2736FA3E199E6BEB000D02C5 /* leather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leather.png; sourceTree = "<group>"; };
+		277326C819A124B700FD082A /* metal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = metal.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				2736FA3E199E6BEB000D02C5 /* leather.png */,
+				277326C819A124B700FD082A /* metal.png */,
 				2736FA3C199E5273000D02C5 /* wood.png */,
 			);
 			name = Images;
@@ -247,6 +250,7 @@
 				2736FA0F199D39D0000D02C5 /* InfoPlist.strings in Resources */,
 				2736FA17199D39D0000D02C5 /* Images.xcassets in Resources */,
 				2736FA3D199E5273000D02C5 /* wood.png in Resources */,
+				277326C919A124B700FD082A /* metal.png in Resources */,
 				2736FA3F199E6BEB000D02C5 /* leather.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -466,6 +470,7 @@
 				2736FA2F199D39D1000D02C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2736FA30199D39D1000D02C5 /* Build configuration list for PBXNativeTarget "LabyrinthTests" */ = {
 			isa = XCConfigurationList;
@@ -474,6 +479,7 @@
 				2736FA32199D39D1000D02C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
