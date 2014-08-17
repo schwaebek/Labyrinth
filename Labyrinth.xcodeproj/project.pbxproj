@@ -22,6 +22,7 @@
 		2736FA35199D3A22000D02C5 /* LABViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2736FA34199D3A22000D02C5 /* LABViewController.m */; };
 		2736FA38199D3CDA000D02C5 /* LABGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2736FA37199D3CDA000D02C5 /* LABGraphView.m */; };
 		2736FA3D199E5273000D02C5 /* wood.png in Resources */ = {isa = PBXBuildFile; fileRef = 2736FA3C199E5273000D02C5 /* wood.png */; };
+		2736FA3F199E6BEB000D02C5 /* leather.png in Resources */ = {isa = PBXBuildFile; fileRef = 2736FA3E199E6BEB000D02C5 /* leather.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		2736FA36199D3CDA000D02C5 /* LABGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LABGraphView.h; sourceTree = "<group>"; };
 		2736FA37199D3CDA000D02C5 /* LABGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LABGraphView.m; sourceTree = "<group>"; };
 		2736FA3C199E5273000D02C5 /* wood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood.png; sourceTree = "<group>"; };
+		2736FA3E199E6BEB000D02C5 /* leather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leather.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 		2736FA3B199E4F4C000D02C5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2736FA3E199E6BEB000D02C5 /* leather.png */,
 				2736FA3C199E5273000D02C5 /* wood.png */,
 			);
 			name = Images;
@@ -244,6 +247,7 @@
 				2736FA0F199D39D0000D02C5 /* InfoPlist.strings in Resources */,
 				2736FA17199D39D0000D02C5 /* Images.xcassets in Resources */,
 				2736FA3D199E5273000D02C5 /* wood.png in Resources */,
+				2736FA3F199E6BEB000D02C5 /* leather.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
