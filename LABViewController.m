@@ -54,6 +54,22 @@
     {
         blackHoles = [@[] mutableCopy];
         walls = [@[] mutableCopy];
+      
+
+        ballItemBehavior = [[UIDynamicItemBehavior alloc] init];
+        //    ballItemBehavior.friction = 0;
+        //    ballItemBehavior.elasticity = 0;
+    //ballItemBehavior.resistance = 0;
+        ballItemBehavior.density = 10;
+        
+     //   ballItemBehavior.allowsRotation = NO;
+        [animator addBehavior:ballItemBehavior];
+
+       
+        
+        blackHoleBehavior = [[UIDynamicItemBehavior alloc] init];
+        blackHoleBehavior.density = 10000000000;
+        [animator addBehavior:blackHoleBehavior];
         
         // Custom initialization
     }
@@ -63,8 +79,44 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
     
-   
+    wallBehavior = [[UIDynamicItemBehavior alloc] init];
+    wallBehavior.density = 1000000000000000;
+    [animator addBehavior:wallBehavior];
+    
+    wall2Behavior = [[UIDynamicItemBehavior alloc] init];
+    wall2Behavior.density = 1000000000000000;
+    [animator addBehavior:wallBehavior];
+    
+    //wall3Behavior = [[UIDynamicItemBehavior alloc] init];
+    //wall3Behavior.density = 10000000000;
+    //[animator addBehavior:wall3Behavior];
+    
+    wall4Behavior = [[UIDynamicItemBehavior alloc] init];
+    wall4Behavior.density = 10000000000000000;
+    [animator addBehavior:wallBehavior];
+
+    
+    gravityBehavior = [[UIGravityBehavior alloc] init];
+    gravityBehavior.magnitude = 0.1;
+    [animator addBehavior:gravityBehavior];
+    
+    collisionBehavior = [[UICollisionBehavior alloc] init];
+    collisionBehavior.collisionDelegate = self;
+    collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
+    [collisionBehavior addBoundaryWithIdentifier:@"hole" fromPoint:CGPointMake(5, 20) toPoint:CGPointMake(5, 40)];
+    
+    [animator addBehavior:collisionBehavior];
+    
+    motionManager = [[CMMotionManager alloc] init];
+    [motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion *motion, NSError *error) {
+        
+        xRotation -=motion.rotationRate.x /30.0;
+        yRotation +=motion.rotationRate.y /30.0;
+        
+        [self updateGravity];
+    }];
     
     self.view.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
     //self.view.backgroundColor = [UIColor colorWithRed:0.835f green:0.812f blue:0.682f alpha:1.0f];
@@ -75,22 +127,10 @@
 
 -(void)prepareGameElements
 {
-    animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-    gravityBehavior = [[UIGravityBehavior alloc] init];
-    [animator addBehavior:gravityBehavior];
-    
-    collisionBehavior = [[UICollisionBehavior alloc] init];
-    collisionBehavior.collisionDelegate = self;
-    collisionBehavior.translatesReferenceBoundsIntoBoundary = YES;
-    [animator addBehavior:collisionBehavior];
     
     //int remainingCounts;
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:1
-                                             target:self
-                                           selector:@selector(countDown)
-                                           userInfo:nil
-                                            repeats:YES];
+    
     //remainingCounts = 60;
     
     
@@ -101,22 +141,6 @@
     hole.layer.borderColor = [[UIColor blackColor]CGColor];
     [self.view addSubview:hole];
     
-    timeClock= [[UILabel alloc] initWithFrame:CGRectMake(480, 10, 80, 40)];
-    timeClock.backgroundColor = [UIColor whiteColor];
-    timeClock.textColor = [UIColor blackColor];
-    timeClock.layer.borderWidth = 2.0;
-    timeClock.layer.borderColor = [[UIColor blackColor]CGColor];
-    [self.view addSubview:timeClock];
-    
-    
-    
-    ballItemBehavior = [[UIDynamicItemBehavior alloc] init];
-//    ballItemBehavior.friction = 0;
-//    ballItemBehavior.elasticity = 0;
-//    ballItemBehavior.resistance = 0;
-    //ballItemBehavior.density = 100000;
-    ballItemBehavior.allowsRotation = NO;
-    [animator addBehavior:ballItemBehavior];
     
     ball = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     //ball.center = self.view.center;
@@ -176,29 +200,10 @@
     //[self.view addSubview:wall5];
     //[walls addObject:wall5];
     
-    wallBehavior = [[UIDynamicItemBehavior alloc] init];
-    wallBehavior.density = 10000000000;
-    [animator addBehavior:wallBehavior];
-    
-    wall2Behavior = [[UIDynamicItemBehavior alloc] init];
-    wall2Behavior.density = 10000000000;
-    [animator addBehavior:wall2Behavior];
-    
-    //wall3Behavior = [[UIDynamicItemBehavior alloc] init];
-    //wall3Behavior.density = 10000000000;
-    //[animator addBehavior:wall3Behavior];
-    
-    wall4Behavior = [[UIDynamicItemBehavior alloc] init];
-    wall4Behavior.density = 10000000000000;
-    [animator addBehavior:wall4Behavior];
     
     //wall5Behavior = [[UIDynamicItemBehavior alloc] init];
     //wall5Behavior.density = 10000000000;
     //[animator addBehavior:wall5Behavior];
-
-    blackHoleBehavior = [[UIDynamicItemBehavior alloc] init];
-    blackHoleBehavior.density = 10000000000;
-    [animator addBehavior:blackHoleBehavior];
     
     [self createBlackHoles];
 
@@ -224,13 +229,14 @@
 //    LABGraphView * graphView = [[LABGraphView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width)];
 //    
 //    CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
-//    
-    motionManager = [[CMMotionManager alloc] init];
+//
+    [motionManager stopDeviceMotionUpdates];
+    motionManager = [[CMMotionManager alloc]init];
     [motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMDeviceMotion *motion, NSError *error) {
         //NSLog(@"x %f y %f z %f", motion.rotationRate.x,motion.rotationRate.y,motion.rotationRate.z);
         
-        xRotation -= motion.rotationRate.x / 50;
-        yRotation += motion.rotationRate.y / 50;
+        xRotation -= motion.rotationRate.x / 20;
+        yRotation += motion.rotationRate.y / 20;
         [self updateGravity];
 //        if (graphView.xPlots.count > self.view.frame.size.height /10.0)
 //        {
@@ -250,6 +256,7 @@
         [wallBehavior removeItem:wall];
         [collisionBehavior removeItem:wall];
     }
+    
     [walls removeAllObjects];
     
     for (UIView * blackHole in blackHoles)
@@ -260,26 +267,23 @@
         
     }
     
+    [blackHoles removeAllObjects];
    
     [ballItemBehavior removeItem:ball];
     [collisionBehavior removeItem:ball];
     [gravityBehavior removeItem:ball];
     
     [ball removeFromSuperview];
-        
-        
-        
-    [blackHoles removeAllObjects];
+    
     [hole removeFromSuperview];
     
     //[ballItemBehavior removeItem:ball];
     //[collisionBehavior removeItem:ball];
     //[gravityBehavior removeItem:ball];
     
-    [ball removeFromSuperview];
     //[timeClock removeFromSuperview];
     
-    
+    [startButton removeFromSuperview];
     startButton = [[UIButton alloc] initWithFrame:CGRectMake((SCREEN_WIDTH -100) /2.0,(SCREEN_HEIGHT -100) /2.0, 100, 100)];
     [startButton setTitle: @"START" forState:UIControlStateNormal];
     [startButton addTarget:self action:@selector(startGame) forControlEvents:UIControlEventTouchUpInside];
@@ -292,6 +296,17 @@
 {
     [startButton removeFromSuperview];
     [self prepareGameElements];
+    timer = [NSTimer scheduledTimerWithTimeInterval:1
+                                             target:self
+                                           selector:@selector(countDown)
+                                           userInfo:nil
+                                            repeats:YES];
+    timeClock= [[UILabel alloc] initWithFrame:CGRectMake(480, 10, 80, 40)];
+    timeClock.backgroundColor = [UIColor whiteColor];
+    timeClock.textColor = [UIColor blackColor];
+    timeClock.layer.borderWidth = 2.0;
+    timeClock.layer.borderColor = [[UIColor blackColor]CGColor];
+    [self.view addSubview:timeClock];
 }
 
 -(void)updateGravity
@@ -404,19 +419,17 @@
 }
 -(void)countDown
 {
-    timeClock.text = [NSString stringWithFormat:@"%d",[timeClock.text intValue] + 1];
-    if (++remainingCounts > 5)
+    timeClock.text = [NSString stringWithFormat:@"%d",remainingCounts + 1];
+    if (++remainingCounts > 60)
     {
+        remainingCounts = 0;
+        
         [timer invalidate];
-        [self startGame];
-        
-        
-        
-        
+        [timeClock removeFromSuperview];
+        [self showStartButton];
+
     }
-    
-    
-    
+    //return;
 }
 
 -(void)collisionBehavior:(UICollisionBehavior *)behavior beganContactForItem:(id<UIDynamicItem>)item1 withItem:(id<UIDynamicItem>)item2 atPoint:(CGPoint)p
@@ -426,14 +439,12 @@
     {
         if ([item1 isEqual:blackHole] || [item2 isEqual:blackHole])
         {
-            [ball removeFromSuperview];
-            [collisionBehavior removeItem:ball];
-            [gravityBehavior removeItem:ball];
-            [ballItemBehavior removeItem:ball];
             [self showStartButton];
+            
+            return;
         }
         
     }
-
+ 
 }
 @end
